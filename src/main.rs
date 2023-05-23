@@ -77,6 +77,11 @@ fn player_movement(
     }
 }
 
+/**
+ * This method creates 5 Sprites and adds them as children of the camera. 
+ * I want them to have a fixed position relative to the camera, 
+ * so that they stay in the same position of the viewport even when the camera moves.
+ */
 fn spawn_inventory_ui(
     mut commands: Commands,
     graphics: Res<PlaceHolderGraphics>,
@@ -84,19 +89,16 @@ fn spawn_inventory_ui(
 ) {
     let camera = camera_query.single();
     let mut boxes = Vec::new();
-    let spacing = 40.0;
-    let starting_x = 0.0;
 
     let sprite = TextureAtlasSprite::new(graphics.box_index);
-    // sprite.custom_size = Some(Vec2::splat(0.1));
     for i in 0..5 {
         let sprint_bundle = SpriteSheetBundle {
             sprite: sprite.clone(),
             texture_atlas: graphics.texture_atlas.clone(),
             transform: Transform {
                 translation: Vec3 {
-                    x: starting_x + spacing * i as f32,
-                    y: -0.8,
+                    x: 40.0 * i as f32,
+                    y: 0.0,
                     z: -1.0,
                 },
                 ..default()
