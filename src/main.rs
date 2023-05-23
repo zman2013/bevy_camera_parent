@@ -78,7 +78,7 @@ fn player_movement(
 }
 
 /**
- * This method creates 5 Sprites and adds them as children of the camera. 
+ * This function creates 5 Sprites and adds them as children of the camera. 
  * I want them to have a fixed position relative to the camera, 
  * so that they stay in the same position of the viewport even when the camera moves.
  */
@@ -98,12 +98,11 @@ fn spawn_inventory_ui(
             transform: Transform {
                 translation: Vec3 {
                     x: 40.0 * i as f32,
-                    y: 0.0,
+                    y: 40.0,
                     z: -1.0,
                 },
                 ..default()
             },
-            visibility: Visibility::Visible,
             ..default()
         };
         boxes.push(commands.spawn(sprint_bundle).id());
@@ -115,7 +114,8 @@ fn spawn_camera(mut commands: Commands) {
     let mut camera = Camera2dBundle::default();
     camera.camera_2d.clear_color = ClearColorConfig::Custom(Color::GREEN);
 
-    commands.spawn(camera);
+    commands.spawn(camera)
+        .insert(VisibilityBundle::default());
 }
 
 fn spawn_player(mut commands: Commands, graphics: Res<PlaceHolderGraphics>) {
